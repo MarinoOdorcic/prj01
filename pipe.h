@@ -11,7 +11,7 @@ private:
     double friction;
     double constant;
 public:
-    Pipe(double D, double L, double F);
+    Pipe(double D, double L, double lambda);
     double calculatePressureDrop(double flow) override;
 };
 
