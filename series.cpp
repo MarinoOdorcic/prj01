@@ -25,7 +25,5 @@ void Series::printElementId() const {
     for (const Element *element: elements) {
         element->printId();
         element->printType();
-//        fmt::print("{}", element->getType());
-//        std::cout << element->getType();
     }
 }

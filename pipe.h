@@ -9,7 +9,7 @@ private:
     double diameter;
     double length;
     double friction;
-    double constant = 8 / (9.81 * pow(M_PI,2));
+    double constant;
 public:
     Pipe(double D, double L, double F);
     double calculatePressureDrop(double flow) override;

@@ -5,7 +5,7 @@
 #include "Element.h"
 
 class Series {
-public:
+private:
     double flow;
     std::vector<Element*> elements;
 //    std::vector<int> elementId;

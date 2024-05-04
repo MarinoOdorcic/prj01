@@ -15,7 +15,7 @@ Element::~Element()
 
 void Element::printId() const
 {
-    fmt::print("{} - ", id);
+    fmt::print("{}  - ", id);
 }
 
 void Element::printType() const
