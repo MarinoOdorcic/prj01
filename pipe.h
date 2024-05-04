@@ -2,7 +2,6 @@
 #define PRJ01_PIPE_H
 
 #include "element.h"
-#include "pipe.h"
 #include <cmath>
 
 class Pipe : public Element {
