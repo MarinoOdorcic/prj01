@@ -5,6 +5,7 @@
 //#include <nlohmann/json.hpp>
 //#include <fstream>
 
+bool test = true;
 
 class Local{
 private:
