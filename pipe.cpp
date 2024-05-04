@@ -6,6 +6,6 @@ Pipe::Pipe(double D, double L, double F)
     length = L;
     friction = F;
 }
-double Pipe::pressureDrop(double flow) const {
+double Pipe::calculatePressureDrop(double flow) {
     return constant * length * friction * pow(flow, 2) / pow(diameter, 5);
 }

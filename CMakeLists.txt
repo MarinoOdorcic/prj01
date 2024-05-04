@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(zadatak1 LANGUAGES CXX)
+project(prj01 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -30,12 +30,16 @@ endif()
 #FetchContent_MakeAvailable(fmt)
 #FetchContent_MakeAvailable(json)
 
-add_executable(zadatak1
+add_executable(prj01
         main.cpp
         element.cpp
         pipe.h
-        pipe.cpp)
+        pipe.cpp
+        series.h
+        series.cpp
+        local.cpp
+)
 
-target_link_libraries(zadatak1
+target_link_libraries(prj01
         fmt::fmt
         nlohmann_json::nlohmann_json)
