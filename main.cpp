@@ -1,9 +1,12 @@
 #include <fmt/core.h>
+//#include <nlohmann/json.hpp>
+
 #include <iostream>
 #include <cmath>
 #include <vector>
-//#include <nlohmann/json.hpp>
 //#include <fstream>
+
+#include "pipe.h"
 
 bool test = true;
 
@@ -20,21 +23,21 @@ public:
     }
 };
 
-class Pipe{
-private:
-    double diameter;
-    double length;
-    double friction;
-    double constant = 8 / (9.81 * pow(M_PI,2));
-public:
-    Pipe(double D, double L, double F){
-        diameter = D; length = L; friction = F;
-    }
-    double pressureDrop(double flow) {
-        double drop = constant * length * friction * pow(flow, 2) / pow(diameter, 5);
-        return drop;
-    }
-};
+//class Pipe{
+//private:
+//    double diameter;
+//    double length;
+//    double friction;
+//    double constant = 8 / (9.81 * pow(M_PI,2));
+//public:
+//    Pipe(double D, double L, double F){
+//        diameter = D; length = L; friction = F;
+//    }
+//    double pressureDrop(double flow) {
+//        double drop = constant * length * friction * pow(flow, 2) / pow(diameter, 5);
+//        return drop;
+//    }
+//};
 
 class Series{
 private:
@@ -48,7 +51,7 @@ public:
     std::vector<Local> locals;
 
     void addPipe(const Pipe& pipe) {
-    pipes.push_back(pipe);
+        pipes.push_back(pipe);
     }
     void addLocal(const Local& local) {
         locals.push_back(local);

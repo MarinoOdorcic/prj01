@@ -31,7 +31,10 @@ endif()
 #FetchContent_MakeAvailable(json)
 
 add_executable(zadatak1
-        main.cpp)
+        main.cpp
+        element.cpp
+        pipe.h
+        pipe.cpp)
 
 target_link_libraries(zadatak1
         fmt::fmt
