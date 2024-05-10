@@ -1,18 +1,28 @@
 #ifndef PRJ01_SERIES_H
 #define PRJ01_SERIES_H
 
-#include <vector>
 #include "Element.h"
+#include "pipe.h"
+#include <vector>
+#include <string>
+
 
 class Series {
 private:
     double flow;
+    std::basic_string<char> inputMethod;
     std::vector<Element*> elements;
-//    std::vector<int> elementId;
+
 public:
-    Series(double Q);
-    void addElement(Element* element);
+    Series(std::vector<Element*> vec,
+           std::basic_string<char> in,
+           double Q);
+
     double totalPressureDrop();
+
+    void updateID();
+    void updateCoords();
+
     void printElementId() const;
 
 };

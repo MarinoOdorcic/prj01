@@ -6,8 +6,10 @@
 
 class Local : public Element {
 private:
+    static int counter;
     double coefficient;
 public:
+
     Local(double k);
     double calculatePressureDrop(double flow) override;
 };

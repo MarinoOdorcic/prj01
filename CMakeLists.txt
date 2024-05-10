@@ -38,6 +38,8 @@ add_executable(prj01
         series.h
         series.cpp
         local.cpp
+        inlet.h
+        inlet.cpp
 )
 
 target_link_libraries(prj01

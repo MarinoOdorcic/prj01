@@ -1,21 +1,46 @@
 #ifndef PRJ01_ELEMENT_H
 #define PRJ01_ELEMENT_H
 
+#include <string>
+#include <vector>
+
 enum elementType{
     PIPE,
     LOCAL
 };
 
 class Element {
+private:
+    static int counter;
+    std::string elementID;
+    std::string upstreamID = "n/a\t";
+    std::string downstreamID = "n/a\t";
+    double xCoord;
+    double zCoord;
+
+
 public:
     Element();
     ~Element();
-    int id = 0;
     elementType type=type;
+
+
+//    void updateID(int ID);
     virtual double calculatePressureDrop(double flowRate) = 0;
-    void printId() const;
-    void printType() const;
+
     elementType getType() const { return type; }
+
+    void setCoords(double val1, double val2);
+
+    void setElementID(int ID);
+    void setElementID(const std::string& ID);
+    void setUpstreamID(std::basic_string<char> ID);
+    void setDownstreamID(std::basic_string<char> ID);
+
+    std::vector<std::string> getID();
+
+    void printType() const;
+    void printID() const;
 };
 
 #endif //PRJ01_ELEMENT_H

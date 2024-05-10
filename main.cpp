@@ -11,33 +11,36 @@
 #include "local.h"
 #include "series.h"
 
-//void print(std::vector<Element> &series)
-//{
-//
-//}
+
+int Element::counter = 1;
+int Pipe::counter = 1;
+int Local::counter = 1;
 
 int main()
 {
-    Pipe pipe1(1,100,0.001);
-    Pipe pipe2(1.2,200,0.001);
-    fmt::print("{}: {}\n", "pipe1", pipe1.calculatePressureDrop(30));
-    fmt::print("{}: {}\n", "pipe2", pipe2.calculatePressureDrop(30));
 
-    Local local1(0.003);
-    Local local2(0.002);
-    fmt::print("{}: {}\n", "local1", local1.calculatePressureDrop(30));
-    fmt::print("{}: {}\n", "local2", local2.calculatePressureDrop(30));
+    std::vector<Element*> vec;
+    vec.push_back(new Pipe(100,0,1,0.001));
+//    vec.push_back(new Pipe(100,0,1,0.001));
+//    vec.push_back(new Local(0.003));
+//    vec.push_back(new Pipe(100,0,1,0.001));
 
-    Series series(30);
+    Series series(vec,"Length/Z",30);
 
-    series.addElement(&pipe1);
-    series.addElement(&local1);
-    series.addElement(&pipe2);
-    series.addElement(&local2);
 
-    fmt::print("\n{}: {}\n\n", "Total pressure drop", series.totalPressureDrop());
-    fmt::print("id - type\n");
-    series.printElementId();
+
+    series.updateID();
+    series.updateCoords();
+//    series.printElementId();
+
+    fmt::print("\n\nTotal pressure drop {}", series.totalPressureDrop());
+
+    fmt::print("\n{}", dynamic_cast<Pipe*>(vec[0])->length);
+
+
+    for (auto& obj : vec) {
+        delete obj;
+    }
 
     return 0;
 }
