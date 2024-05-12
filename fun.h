@@ -3,6 +3,9 @@
 
 #include "element.h"
 #include "pipe.h"
+#include <fmt/core.h>
+#include <fmt/format.h>
+#include <fmt/ranges.h>
 
 
 void pipeCoords(std::basic_string<char> input, Element* upstream, Element* element){
@@ -54,5 +57,11 @@ void localCoords(Element* upstream, Element* element){
     double z0 = upstream->getZ();
     local->setCoords(x0,z0);
 }
+
+template<typename T>
+void printVec(const std::vector<T>& vec, int width) {
+    fmt::print("{}",fmt::format("{:<{}}", fmt::join(vec, ""), width));
+}
+
 
 #endif //PRJ01_FUN_H

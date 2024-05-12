@@ -8,15 +8,16 @@
 enum elementType{
     INLET,
     PIPE,
-    LOCAL
+    LOCAL,
+    CONTRACTION,
 };
 
 class Element {
 private:
     static int counter;
     std::string elementID;
-    std::string upstreamID = "n/a\t";
-    std::string downstreamID = "n/a\t";
+    std::string upstreamID = "n/a";
+    std::string downstreamID = "n/a";
     double xCoord;
     double zCoord;
 
@@ -35,6 +36,7 @@ public:
     void setCoords(double val1, double val2);
     double getX() const {return xCoord;}
     double getZ() const {return zCoord;}
+    std::vector<double> getXZ(){return {xCoord,zCoord};}
 
     void setElementID(int ID);
     void setElementID(const std::string& ID);

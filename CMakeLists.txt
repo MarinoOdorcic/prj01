@@ -41,6 +41,9 @@ add_executable(prj01
         inlet.h
         inlet.cpp
         fun.h
+        contraction.h
+        contraction.h
+        contraction.cpp
 )
 
 target_link_libraries(prj01

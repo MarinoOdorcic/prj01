@@ -1,5 +1,11 @@
 #include "local.h"
 
+Local::Local() {
+    type = elementType::LOCAL;
+    setElementID(counter++);
+    setElementID("-");
+}
+
 Local::Local(double k){
     coefficient = k;
     type = elementType::LOCAL;

@@ -31,7 +31,7 @@ void Series::updateCoords(){
         if (elements[i]->getType()==PIPE) {
             pipeCoords(input, elements[i-1], elements[i]);
         }
-        if (elements[i]->getType()==LOCAL) {
+        if (elements[i]->getType()==LOCAL or elements[i]->getType()==CONTRACTION) {
             localCoords(elements[i - 1], elements[i]);
         }
     }
@@ -46,10 +46,14 @@ double Series::totalPressureDrop() {
 }
 
 void Series::printElementId() const {
-    fmt::print("Upstream ID\tElement ID\tDownstream ID\tX Coord\tZ Coord\n");
+    std::vector<std::string> titleID = {"Upstream ID", "Element ID", "Downstream ID"};
+    std::vector<std::string> titleCoords = {"Global X", "Global Z"};
+    printVec(titleID, 25);
+    printVec(titleCoords, 15);
+    fmt::print("\n");
     for (Element *element: elements) {
-        fmt::print("{}\t",fmt::join(element->getID(), "\t"));
-        fmt::print("{:.2f}\t{:.2f}\n",element->getX(), element->getZ());
-
+        printVec(element->getID(),25);
+        printVec(element->getXZ(), 15);
+        fmt::print("\n");
     }
 }
