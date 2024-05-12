@@ -3,8 +3,10 @@
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 enum elementType{
+    INLET,
     PIPE,
     LOCAL
 };
@@ -28,9 +30,11 @@ public:
 //    void updateID(int ID);
     virtual double calculatePressureDrop(double flowRate) = 0;
 
-    elementType getType() const { return type; }
+    elementType getType() const {return type;}
 
     void setCoords(double val1, double val2);
+    double getX() const {return xCoord;}
+    double getZ() const {return zCoord;}
 
     void setElementID(int ID);
     void setElementID(const std::string& ID);

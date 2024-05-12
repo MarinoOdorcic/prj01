@@ -40,6 +40,7 @@ add_executable(prj01
         local.cpp
         inlet.h
         inlet.cpp
+        fun.h
 )
 
 target_link_libraries(prj01

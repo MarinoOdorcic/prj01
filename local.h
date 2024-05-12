@@ -2,7 +2,7 @@
 #define PRJ01_LOCAL_H
 
 #include "element.h"
-#include <cmath>
+
 
 class Local : public Element {
 private:

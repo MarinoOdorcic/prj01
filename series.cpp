@@ -1,15 +1,17 @@
 #include "series.h"
+#include "element.h"
 #include "local.h"
 #include "pipe.h"
+#include "fun.h"
 #include <fmt/core.h>
 #include <fmt/ranges.h>
 
 #include <iostream>
 
-Series::Series(std::vector<Element*> vec, std::basic_string<char> in, double Q){
+Series::Series(std::vector<Element*> vec, std::basic_string<char> inputMethod, double Q){
     elements = vec;
     flow =  Q;
-    inputMethod = in;
+    input = inputMethod;
 };
 
 
@@ -25,11 +27,12 @@ void Series::updateID(){
 };
 
 void Series::updateCoords(){
-    for (size_t i = 0; i < elements.size(); ++i) { // <-----------------------------------i=0
-        if (inputMethod == "Length/Z" && elements[i]->getType()==PIPE) {
-            auto temp = dynamic_cast<Pipe*>(elements[i]);
-            temp->setLength(temp->value1);
-
+    for (size_t i = 0; i < elements.size(); ++i) {
+        if (elements[i]->getType()==PIPE) {
+            pipeCoords(input, elements[i-1], elements[i]);
+        }
+        if (elements[i]->getType()==LOCAL) {
+            localCoords(elements[i - 1], elements[i]);
         }
     }
 }
@@ -43,8 +46,10 @@ double Series::totalPressureDrop() {
 }
 
 void Series::printElementId() const {
-    fmt::print("Upstream ID\tElement ID\tDownstream ID\n");
+    fmt::print("Upstream ID\tElement ID\tDownstream ID\tX Coord\tZ Coord\n");
     for (Element *element: elements) {
-        fmt::print("{}\n",fmt::join(element->getID(), "\t"));
+        fmt::print("{}\t",fmt::join(element->getID(), "\t"));
+        fmt::print("{:.2f}\t{:.2f}\n",element->getX(), element->getZ());
+
     }
 }

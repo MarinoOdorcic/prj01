@@ -1,7 +1,7 @@
 #ifndef PRJ01_SERIES_H
 #define PRJ01_SERIES_H
 
-#include "Element.h"
+#include "element.h"
 #include "pipe.h"
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 class Series {
 private:
     double flow;
-    std::basic_string<char> inputMethod;
+    std::basic_string<char> input;
     std::vector<Element*> elements;
 
 public:

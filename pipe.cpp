@@ -15,9 +15,7 @@ Pipe::Pipe(double val1, double val2, double D, double lambda)
 double Pipe::calculatePressureDrop(double flow) {
     return constant * length * friction * pow(flow, 2) / pow(diameter, 5);
 }
-void Pipe::setLength(double L){
-    length = L;
-}
+
 
 void Pipe::printProperties(){
     fmt::print("Value 1:  {}\n", value1);
