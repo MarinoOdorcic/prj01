@@ -8,40 +8,45 @@
 #include <cmath>
 #include <vector>
 
-#include "element.h"
-#include "inlet.h"
-#include "pipe.h"
-#include "local.h"
-#include "series.h"
-#include "contraction.h"
+#include "elementBaseClass/element.h"
+#include "elementSubClass/inlet.h"
+#include "elementSubClass/pipe.h"
+#include "elementSubClass/local.h"
+#include "seriesBaseClass/series.h"
+#include "localSubClass/contraction.h"
+#include "localSubClass/expansion.h"
+#include "localSubClass/elbow.h"
 
 
 int Element::counter = 1;
 int Pipe::counter = 1;
 int Local::counter = 1;
 int Contraction::counter = 1;
+int Expansion::counter = 1;
+int Elbow::counter = 1;
 
 int main()
 {
-
     std::vector<Element*> vec;
-    vec.push_back(new Inlet(0,0, 0.001));
-    vec.push_back(new Pipe(10.5,2,1,0.001));
-    vec.push_back(new Contraction(45));
-    vec.push_back(new Pipe(20.25,3.12,1,0.001));
-    vec.push_back(new Local(0.003));
-    vec.push_back(new Contraction(45));
+    vec.push_back(new Inlet(0,0, "rounded edge"));
+    vec.push_back(new Pipe(50,10,1,0.001));
+    vec.push_back(new Pipe(20,20,1,0.001));
+    vec.push_back(new Local(0.02));
+    vec.push_back(new Pipe(40,-5,0.8,0.001));
+    vec.push_back(new Expansion(90));
     vec.push_back(new Pipe(100,0,1,0.001));
 
     Series series(vec,"Local Cartesian",30);
 
     series.updateID();
-    series.updateCoords();
-    series.printElementId();
+
+    series.totalPressureDrop();
+    series.printSeriesProperties();
+
+    vec[3]->printProperties();
+
 
 //    fmt::print("\n\nTotal pressure drop {}", series.totalPressureDrop());
-
-//    fmt::print("\n{}", dynamic_cast<Pipe*>(vec[2])->getLength());
 
 
 
