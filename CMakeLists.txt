@@ -32,22 +32,11 @@ endif()
 
 add_executable(prj01
         main.cpp
-        elementBaseClass/element.cpp
-        elementSubClass/pipe.h
-        elementSubClass/pipe.cpp
-        seriesBaseClass/series.h
-        seriesBaseClass/series.cpp
-        elementSubClass/local.h
-        elementSubClass/local.cpp
-        elementSubClass/inlet.h
-        elementSubClass/inlet.cpp
-        localSubClass/contraction.h
-        localSubClass/contraction.cpp
-        localSubClass/expansion.h
-        localSubClass/expansion.cpp
-        localSubClass/elbow.h
-        localSubClass/elbow.cpp
-)
+        element.cpp
+        pipe.h
+        pipe.cpp
+        local.h
+        local.cpp)
 
 target_link_libraries(prj01
         fmt::fmt
