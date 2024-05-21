@@ -49,13 +49,13 @@
   },
 
   "l1":{
-    "element type": "boundary condition",
+    "type": "boundary condition",
     "input value": 0.05,
     "upstream": "p1",
     "downstream": "p2"
   },
   "l2":{
-    "element type": "boundary condition",
+    "type": "boundary condition",
     "input value": 0.1,
     "upstream": "p2",
     "downstream": "p3"
