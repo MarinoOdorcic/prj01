@@ -1,0 +1,66 @@
+[
+  {
+    "element type": "pipe",
+    "element ID": "p1",
+    "x start": 0,
+    "z start": 40,
+    "x end": 100,
+    "z end": 35,
+    "diameter": 1,
+    "roughness coefficient": 0.005,
+    "upstream ID": "pressure",
+    "downstream ID": "l1"
+  },
+  {
+    "element type": "pipe",
+    "element ID": "p2",
+    "x start": 100,
+    "z start": 35,
+    "x end": 200,
+    "z end": 30,
+    "diameter": 1.5,
+    "roughness coefficient": 0.01,
+    "upstream ID": "l1",
+    "downstream ID": "l2"
+  },
+  {
+    "element type": "pipe",
+    "element ID": "p3",
+    "x start": 200,
+    "z start": 30,
+    "x end": 350,
+    "z end": 30,
+    "diameter": 0.8,
+    "roughness coefficient": 0.002,
+    "upstream ID": "l2",
+    "downstream ID": "flow"
+  },
+  {
+    "element type": "boundary condition",
+    "element ID": "pressure",
+    "input value": 120,
+    "upstream ID": "NONE",
+    "downstream ID": "p1"
+  },
+  {
+    "element type": "boundary condition",
+    "element ID": "flow",
+    "input value": 10,
+    "upstream ID": "p3",
+    "downstream ID": "NONE"
+  },
+  {
+    "element type": "boundary condition",
+    "element ID": "l1",
+    "input value": 0.05,
+    "upstream ID": "p1",
+    "downstream ID": "p2"
+  },
+  {
+    "element type": "boundary condition",
+    "element ID": "l2",
+    "input value": 0.1,
+    "upstream ID": "p2",
+    "downstream ID": "p3"
+  }
+]
