@@ -89,29 +89,9 @@ int main()
                     item["downstream ID"])));
         }
     }
+
     solve(vec);
 
-
-//    std::vector<std::unique_ptr<Element>> vec;
-//
-//    vec.emplace_back(std::move(std::make_unique<Pipe>(
-//            "p1",0,40,100,35,1,0.005,"in","l1")));
-//    vec.emplace_back(std::move(std::make_unique<Pipe>(
-//            "p2",100,35,200,30,1.5,0.01,"l1","l2")));
-//    vec.emplace_back(std::move(std::make_unique<Pipe>(
-//            "p3",200,30,350,30,0.8,0.002,"l2","fl")));
-//
-//    vec.emplace_back(std::move(std::make_unique<Local>(
-//            "in", 120, "NONE", "p1")));
-//    vec.emplace_back(std::move(std::make_unique<Local>(
-//            "fl", 10, "p3", "NONE")));
-//
-//    vec.emplace_back(std::move(std::make_unique<Local>(
-//            "l1", 0.05, "p1", "p2")));
-//    vec.emplace_back(std::move(std::make_unique<Local>(
-//            "l2", 0.1, "p2", "p3")));
-//
-//    solve(vec);
 
 
     fmt::print("\n{}\n", std::string(70, '-'));
