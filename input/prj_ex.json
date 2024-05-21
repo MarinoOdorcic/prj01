@@ -1,0 +1,23 @@
+{
+  "project_name": "Name01",
+  "p1" : {
+    "type": "pipe",
+    "l": 100,
+    "d": 20,
+    "x": [0, 50, 100],
+    "z": [10, 20, 30]
+  },
+  "c1" : {
+    "type": "local",
+    "k": 0.015,
+    "id": "c1"
+  },
+  "tank" : {
+    "type": "head",
+    "h": 100
+  },
+  "valve" : {
+    "type": "discharge",
+    "q": 1
+  }
+}

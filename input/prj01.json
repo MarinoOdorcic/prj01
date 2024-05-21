@@ -1,0 +1,63 @@
+{
+  "project_name": "Pressure drop calculation",
+
+  "p1":{
+    "type": "pipe",
+    "x start": 0,
+    "z start": 40,
+    "x end": 100,
+    "z end": 35,
+    "diameter": 1,
+    "roughness coefficient": 0.005,
+    "upstream": "pressure",
+    "downstream": "l1"
+  },
+  "p2":{
+    "type": "pipe",
+    "x start": 100,
+    "z start": 35,
+    "x end": 200,
+    "z end": 30,
+    "diameter": 1.5,
+    "roughness coefficient": 0.01,
+    "upstream": "l1",
+    "downstream": "l2"
+  },
+  "p3":{
+    "type": "pipe",
+    "x start": 200,
+    "z start": 30,
+    "x end": 350,
+    "z end": 30,
+    "diameter": 0.8,
+    "roughness coefficient": 0.002,
+    "upstream": "l2",
+    "downstream": "flow"
+  },
+
+  "pressure":{
+    "type": "boundary condition",
+    "input value": 120,
+    "upstream": "NONE",
+    "downstream": "p1"
+  },
+  "flow":{
+    "type": "boundary condition",
+    "input value": 10,
+    "upstream": "p3",
+    "downstream": "NONE"
+  },
+
+  "l1":{
+    "element type": "boundary condition",
+    "input value": 0.05,
+    "upstream": "p1",
+    "downstream": "p2"
+  },
+  "l2":{
+    "element type": "boundary condition",
+    "input value": 0.1,
+    "upstream": "p2",
+    "downstream": "p3"
+  }
+}
