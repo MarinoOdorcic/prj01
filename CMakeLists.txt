@@ -30,14 +30,11 @@ endif()
 #FetchContent_MakeAvailable(fmt)
 #FetchContent_MakeAvailable(json)
 
-add_executable(prj01
-        main.cpp
-        element.cpp
-        pipe.h
-        pipe.cpp
-        local.h
-        local.cpp)
 
-target_link_libraries(prj01
-        fmt::fmt
-        nlohmann_json::nlohmann_json)
+set(INPUT_FOLDER "${CMAKE_SOURCE_DIR}/input" CACHE PATH "json location")
+configure_file (
+        "pathconfig.h.in"
+        "pathconfig.h"
+)
+
+add_subdirectory(src)
