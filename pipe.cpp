@@ -1,5 +1,9 @@
 #include "pipe.h"
 
+constexpr double g{9.810665};
+constexpr double pi{3.14159};
+constexpr double constant{8 / (g * pi*pi)};
+
 /* ----- Functions ------------------------------------------ */
 double theoremL(double X, double Z){
     return pow(pow(X,2) + pow(Z,2),0.5);
@@ -45,7 +49,6 @@ void Pipe::calcPiezometricHead(double H, double dH) {
 /* ----- Prints --------------------------------------------- */
 void Pipe::printProperties(){
     fmt::print("\n");
-    std::cout<<getType();
     fmt::print("Length:   {:.4g}\n", length);
     fmt::print("Diameter: {:.4g}\n", diameter);
     fmt::print("Lambda:   {:.4g}\n", lambda);

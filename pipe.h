@@ -5,10 +5,6 @@
 #include "fmt/core.h"
 #include <cmath>
 
-constexpr double g{9.810665};
-constexpr double pi{3.14159};
-constexpr double constant{8 / (g * pi*pi)};
-
 class Pipe : public Element {
 private:
     double length;

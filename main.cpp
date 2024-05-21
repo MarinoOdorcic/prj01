@@ -1,8 +1,8 @@
 #include <fmt/core.h>
 #include <fmt/format.h>
 #include <fmt/ranges.h>
-//#include <nlohmann/json.hpp>
-//#include <fstream>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
 #include <vector>
 #include <memory>
@@ -62,29 +62,59 @@ void solve(std::vector<std::unique_ptr<Element>>& vec){
 
 int main()
 {
+
+    std::ifstream inputFile("../data.json");
+    nlohmann::json jsonData;
+    inputFile >> jsonData;
+
     std::vector<std::unique_ptr<Element>> vec;
 
-    vec.emplace_back(std::move(std::make_unique<Pipe>(
-            "p1",0,40,100,35,1,0.005,"in","l1")));
-    vec.emplace_back(std::move(std::make_unique<Pipe>(
-            "p2",100,35,200,30,1.5,0.01,"l1","l2")));
-    vec.emplace_back(std::move(std::make_unique<Pipe>(
-            "p3",200,30,350,30,0.8,0.002,"l2","fl")));
-
-    vec.emplace_back(std::move(std::make_unique<Local>(
-            "in", 120, "NONE", "p1")));
-    vec.emplace_back(std::move(std::make_unique<Local>(
-            "fl", 10, "p3", "NONE")));
-
-    vec.emplace_back(std::move(std::make_unique<Local>(
-            "l1", 0.05, "p1", "p2")));
-    vec.emplace_back(std::move(std::make_unique<Local>(
-            "l2", 0.1, "p2", "p3")));
-
+    for (const auto& item : jsonData) {
+        if (item["element type"] == "pipe"){
+            vec.emplace_back(std::move(std::make_unique<Pipe>(
+                    item["element ID"],
+                    item["x start"],
+                    item["z start"],
+                    item["x end"],
+                    item["z end"],
+                    item["diameter"],
+                    item["roughness coefficient"],
+                    item["upstream ID"],
+                    item["downstream ID"])));
+        }else if (item["element type"] == "boundary condition"){
+            vec.emplace_back(std::move(std::make_unique<Local>(
+                    item["element ID"],
+                    item["input value"],
+                    item["upstream ID"],
+                    item["downstream ID"])));
+        }
+    }
     solve(vec);
 
 
-    fmt::print("\n");
+//    std::vector<std::unique_ptr<Element>> vec;
+//
+//    vec.emplace_back(std::move(std::make_unique<Pipe>(
+//            "p1",0,40,100,35,1,0.005,"in","l1")));
+//    vec.emplace_back(std::move(std::make_unique<Pipe>(
+//            "p2",100,35,200,30,1.5,0.01,"l1","l2")));
+//    vec.emplace_back(std::move(std::make_unique<Pipe>(
+//            "p3",200,30,350,30,0.8,0.002,"l2","fl")));
+//
+//    vec.emplace_back(std::move(std::make_unique<Local>(
+//            "in", 120, "NONE", "p1")));
+//    vec.emplace_back(std::move(std::make_unique<Local>(
+//            "fl", 10, "p3", "NONE")));
+//
+//    vec.emplace_back(std::move(std::make_unique<Local>(
+//            "l1", 0.05, "p1", "p2")));
+//    vec.emplace_back(std::move(std::make_unique<Local>(
+//            "l2", 0.1, "p2", "p3")));
+//
+//    solve(vec);
+
+
+    fmt::print("\n{}\n", std::string(70, '-'));
     fmt::print("{}",fmt::format("{:<{}}", fmt::join({"Upstream ID","Element ID","Downstream ID", "Pressure drop"}, ""), 15));
     for (const auto& el : vec){
         fmt::print("\n");
@@ -92,7 +122,7 @@ int main()
         fmt::print("{:.5g}", el->getPressureDrop());
     }
 
-    fmt::print("\n\n");
+    fmt::print("\n{}\n", std::string(70, '-'));
     fmt::print("{}",fmt::format("{:<{}}", "ID", 10));
     fmt::print("{}",fmt::format("{:<{}}", fmt::join({"Upstream","Downstream"}, ""), 30));
     fmt::print("\n");
@@ -109,8 +139,9 @@ int main()
     for (const auto& el : vec){
         totalPressureDrop += el->getPressureDrop();
     }
-    fmt::print("\n\nTotal pressure drop:\t{:.3f}\n", totalPressureDrop);
-
+    fmt::print("\n{}\n", std::string(70, '-'));
+    fmt::print("Total pressure drop:\t{:.3f}", totalPressureDrop);
+    fmt::print("\n{}\n", std::string(70, '-'));
     return 0;
 }
 
