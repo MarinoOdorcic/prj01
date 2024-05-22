@@ -7,7 +7,7 @@ void jsonProject::readJsonFile(const std::string& fileName)
     std::filesystem::path if_json(json_folder);
     if_json /= fileName;
 
-    fmt::print("{}\n", if_json.string());
+//    fmt::print("{}\n", if_json.string());
 
     using json = nlohmann::json;
     std::ifstream ifs(if_json.string());

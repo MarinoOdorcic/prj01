@@ -8,9 +8,32 @@
 #include <memory>
 #include <algorithm>
 #include "element.h"
+
 #include "pipe.h"
 #include "local.h"
 #include "json.h"
+
+double getPressure(std::vector<std::unique_ptr<Element>> &vec) {
+    auto it = std::find_if(vec.begin(), vec.end(), [](const std::unique_ptr<Element>& obj) {
+        return obj->getID()[0] == "NONE";});
+    rotate(vec.begin(), it, it + 1);
+//        fmt::print("\n{}", "rotate");
+    return vec[std::distance(vec.begin(), it)]->getProperties()[0];
+}
+
+double getFlow(std::vector<std::unique_ptr<Element>> &vec) {
+    auto it = std::find_if(vec.begin(), vec.end(), [](const std::unique_ptr<Element>& obj) {
+        return obj->getID()[2] == "NONE";});
+    rotate(it, it + 1, vec.end());
+//        fmt::print("\n{}", "rotate");
+    return vec[std::distance(vec.begin(), it)]->getProperties()[0];
+}
+
+Element& start(std::vector<std::unique_ptr<Element>> &vec){
+    auto it = std::find_if(vec.begin(), vec.end(), [](const std::unique_ptr<Element>& obj) {
+        return obj->getID()[0] == "NONE";});
+    return **it;
+}
 
 void first(std::vector<std::unique_ptr<Element>>& vec){
     if (vec[0]->getID()[0] != "NONE"){
@@ -30,6 +53,12 @@ void last(std::vector<std::unique_ptr<Element>>& vec){
     }
 }
 
+Element& downstream(Element& el, std::vector<std::unique_ptr<Element>> &vec){
+    auto it = std::find_if(vec.begin(), vec.end(), [&vec, &el](const std::unique_ptr<Element> &obj) {
+        return el.getID()[2] == obj->getID()[1];});
+    return **it;
+}
+
 void sort(std::vector<std::unique_ptr<Element>>& vec){
     for (size_t i = 0; i < vec.size()-1; ++i) {
         if (vec[i]->getID()[2] != vec[i + 1]->getID()[1]) {
@@ -43,13 +72,38 @@ void sort(std::vector<std::unique_ptr<Element>>& vec){
 
 void calc(std::vector<std::unique_ptr<Element>>& vec){
     for (size_t i = 1; i < vec.size()-1; ++i){
-        vec[i]->calcPressureDrop(vec[vec.size()-1]->getProperties()[0]);
+        auto Q = getFlow(vec);
+        vec[i]->calcPressureDrop(Q);
     }
 }
 
+//void solve(std::vector<std::unique_ptr<Element>>& vec){
+//    sort(vec);
+//    calc(vec);
+//    auto H = getPressure(vec);
+//    auto &first = start(vec);
+//    auto &next = downstream(first,vec);
+//    auto Z = first.getProperties()[0];
+//    auto dH = downstream(first,vec).getPressureDrop();
+//
+//    next.calcPiezometricHead(Z + H, dH);
+//
+////    vec[1]->calcPiezometricHead(firstElement(vec).getProperties()[0]+ H,
+////                                vec[1]->getPressureDrop());
+//    for (size_t i = 2; i < vec.size() - 1; ++i){
+////        if (i != 2){
+////            double dZ = vec[el]->
+////        } else {
+////            double dZ = - getPressure(vec);
+////        }
+//        if (vec[i]->getType() == PIPE){
+//            vec[i]->calcPiezometricHead(vec[i-2]->getProperties()[5]-vec[i-1]->getPressureDrop(),
+//                                        vec[i]->getPressureDrop());
+//        }
+//    }
+//}
+
 void solve(std::vector<std::unique_ptr<Element>>& vec){
-    first(vec);
-    last(vec);
     sort(vec);
     calc(vec);
     vec[1]->calcPiezometricHead(vec[0]->getProperties()[0]+vec[1]->getProperties()[1],
@@ -70,7 +124,6 @@ int main()
     std::vector<std::unique_ptr<Element>> vec;
     prj.loadJsonFile(vec);
     solve(vec);
-
 
 
     fmt::print("\n{}\n", std::string(70, '-'));
