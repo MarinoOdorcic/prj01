@@ -7,7 +7,7 @@ void jsonProject::readJsonFile(const std::string& fileName)
     std::filesystem::path if_json(json_folder);
     if_json /= fileName;
 
-//    fmt::print("{}\n", if_json.string());
+    fmt::print("{}\n", if_json.string());
 
     using json = nlohmann::json;
     std::ifstream ifs(if_json.string());
@@ -27,7 +27,7 @@ void jsonProject::readJsonFile(const std::string& fileName)
 
 void jsonProject::loadJsonFile(std::vector<std::unique_ptr<Element>>& vec){
     for (auto& [key, val] : jsonFile.items()){
-        fmt::print("key: {}\n", key);
+//        fmt::print("key: {}\n", key);
         if (val.is_object() && val.contains("type")
             && val.at("type") == "pipe"){
             vec.emplace_back(std::move(std::make_unique<Pipe>(
