@@ -35,19 +35,6 @@
     "downstream": "flow"
   },
 
-  "pressure":{
-    "type": "boundary condition",
-    "input value": 120,
-    "upstream": "NONE",
-    "downstream": "p1"
-  },
-  "flow":{
-    "type": "boundary condition",
-    "input value": 10,
-    "upstream": "p3",
-    "downstream": "NONE"
-  },
-
   "l1":{
     "type": "boundary condition",
     "input value": 0.05,
@@ -59,5 +46,18 @@
     "input value": 0.1,
     "upstream": "p2",
     "downstream": "p3"
+  },
+
+  "pressure":{
+    "type": "boundary condition",
+    "input value": 120,
+    "upstream": "NONE",
+    "downstream": "p1"
+  },
+  "flow":{
+    "type": "boundary condition",
+    "input value": 10,
+    "upstream": "p3",
+    "downstream": "NONE"
   }
 }
